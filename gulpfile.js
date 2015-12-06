@@ -6,14 +6,21 @@ var rename = require('gulp-rename');
 var jshint=require('gulp-jshint');
 var less = require('gulp-less');
 var rev = require('gulp-rev-append');
+var imagemin = require('gulp-imagemin');
 var clean = require('gulp-clean');
 
 // 更新版本号
 gulp.task('revHTML', function() {
-    return gulp.src('./*.html')
+    return gulp.src('./src/*.html')
         .pipe(rev())
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('./build'));
 });
+// 
+gulp.task('img', function(){
+    return gulp.src('./src/img/*')
+        .pipe(imagemin({progressive: true}))
+        .pipe(gulp.dest('./build/img'));
+})
 // less解析
 gulp.task('build-less',['cleanCSS'], function(){
     return gulp.src('./src/less/style.less')
